@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Future Roadmap: Response-Time Prediction to Cyber Risk Scoring</title>
+<style>
+:root{--bg:#0e1117;--side:#262730;--ink:#fafafa;--mute:#a3a8b8;--line:#2e3340;--red:#ff4b4b;--card:#161a23;--ok:#21c354;--amb:#ffc107}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Source Sans Pro","Segoe UI",system-ui,sans-serif}
+.app{display:flex;height:100%}
+aside{width:260px;background:var(--side);padding:22px 16px;flex-shrink:0;overflow:auto}
+aside h3{margin:0 0 14px;font-size:18px}
+aside button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--mute);font:inherit;font-size:14px;padding:8px 10px;border-radius:6px;cursor:pointer}
+aside button.on{background:#3a3c4a;color:var(--ink)}
+.bar{height:4px;background:#3a3c4a;border-radius:2px;margin:18px 4px 6px}.bar i{display:block;height:100%;background:var(--red);border-radius:2px;transition:width .3s}
+.hint{font-size:12px;color:var(--mute);padding:0 4px}
+main{flex:1;overflow:auto;padding:28px 44px 40px}
+.slide{display:none;max-width:1000px;margin:0 auto;animation:f .3s}.slide.on{display:block}
+@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.12;margin:.1em 0 .3em}
+h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 18px}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.tiles{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.tile small{display:block;color:var(--mute);font-size:13px}.tile b{font-size:clamp(26px,3.6vw,38px);font-weight:400}
+.cols{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.crow{display:grid;grid-template-columns:110px 1fr 56px;gap:10px;align-items:center;font-size:14px;margin:9px 0}
+.crow .t{height:14px;background:#262a35;border-radius:7px;overflow:hidden}.crow .t i{display:block;height:100%;background:var(--red);border-radius:7px}
+.crow.dim .t i{background:#5b6070}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.node{flex:1 1 130px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;font-size:13px;position:relative}
+.node .e{font-size:28px;display:block}.node b{display:block;font-size:15px}
+.node.new{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
+.node.done{border-color:#3a3f4f}
+.badge{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;margin-top:6px}
+.b-done{background:#2a2f3c;color:var(--mute)}.b-new{background:var(--red);color:#fff}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--mute);margin:10px 0 0;flex-wrap:wrap}
+code.eq{display:block;background:#1b1f2a;border-radius:8px;padding:12px 14px;margin-top:16px;font:14px ui-monospace,Menlo,Consolas,monospace;overflow-x:auto;white-space:nowrap}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+svg{width:100%;height:auto;display:block}
+.tier{border-top:4px solid;border-radius:10px;background:var(--card);padding:12px 14px;font-size:14px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);opacity:.5;transition:.25s}
+.tier.on{opacity:1;transform:translateY(-3px)}.tier b{font-size:17px}
+.tl{position:relative;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));padding-top:30px}
+.tl:before{content:"";position:absolute;left:0;right:0;top:13px;height:3px;background:linear-gradient(90deg,var(--red),#5b6070)}
+.ph{position:relative}.ph:before{content:attr(data-n);position:absolute;top:-30px;left:8px;width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+.ph .e{font-size:24px}.ph b{display:block;margin:2px 0}.ph span{font-size:13px;color:var(--mute)}
+input[type=range]{width:100%;accent-color:var(--red)}
+.nav{display:flex;justify-content:space-between;max-width:1000px;margin:26px auto 0;color:var(--mute);font-size:14px}
+.nav button{background:var(--side);color:var(--ink);border:0;border-radius:8px;padding:8px 16px;font:inherit;cursor:pointer}.nav button:hover{background:var(--red)}
+@media(max-width:800px){aside{display:none}main{padding:18px}.crow{grid-template-columns:90px 1fr 50px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+<h3>⚙️ Roadmap Slides</h3>
+<div id="menu"></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="hint">Use ← → keys to navigate</div>
+</aside>
+<main>
+
+<section class="slide on" data-t="📊 Overview">
+<h1>📊 Future Roadmap: From Latency Prediction to Cyber Risk Scoring</h1>
+<p class="sub">Micro-Project 13 · 25DC210 · Division of Data Science and Cyber Security</p>
+<hr>
+<div class="cols">
+<div>
+<p style="font-size:19px">Today the model answers: <b>“How long should this server take to respond?”</b></p>
+<p style="font-size:19px">Next, we ask: <b style="color:var(--red)">“Is the server slower than its workload can explain, and how risky is that?”</b></p>
+<p class="note">Proposed extension. Not yet built or validated.</p>
+</div>
+<svg viewBox="0 0 360 170" aria-label="Prediction line with a flagged spike">
+<rect width="360" height="170" rx="10" fill="#161a23" stroke="#2e3340"/>
+<path d="M15 110 C60 70 90 130 130 95 S200 60 235 90 S300 80 345 70" fill="none" stroke="#a3a8b8" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M15 112 L50 100 L80 118 L115 98 L150 106 L185 88 L205 40 L222 28 L240 70 L275 84 L310 78 L345 74" fill="none" stroke="#fafafa" stroke-width="2.2"/>
+<circle cx="205" cy="40" r="6" fill="#ff4b4b"/><circle cx="222" cy="28" r="6" fill="#ff4b4b"/>
+<text x="238" y="30" fill="#ff4b4b" font-size="12">risk flag</text>
+<text x="18" y="152" fill="#a3a8b8" font-size="11">dashed = predicted · solid = actual</text>
+</svg>
+</div>
+</section>
+
+<section class="slide" data-t="📖 Starting Point">
+<h2>📖 Starting Point: The Baseline We Already Have</h2>
+<p class="sub">Verified results from the project’s held-out test set (200 observations)</p>
+<div class="tiles">
+<div class="tile"><small>Model R² (Accuracy)</small><b>0.9505</b></div>
+<div class="tile"><small>MAE</small><b>20.21 ms</b></div>
+<div class="tile"><small>Prediction RMSE (Error)</small><b>25.26 ms</b></div>
+<div class="tile"><small>Residual t-test p</small><b>0.6947</b></div>
+</div>
+<hr>
+<div class="cols">
+<div class="card"><b>Pearson correlation with response time</b>
+<div class="crow"><span>CPU usage</span><div class="t"><i style="width:96.4%"></i></div><span>0.9637</span></div>
+<div class="crow"><span>Request rate</span><div class="t"><i style="width:94.2%"></i></div><span>0.9423</span></div>
+<div class="crow"><span>Network load</span><div class="t"><i style="width:93.9%"></i></div><span>0.9388</span></div>
+<div class="crow"><span>Memory usage</span><div class="t"><i style="width:91%"></i></div><span>0.9099</span></div>
+<div class="crow dim"><span>Time step</span><div class="t"><i style="width:12.5%"></i></div><span>0.1249</span></div>
+</div>
+<div>
+<p>Why this matters for security: <b>RMSE = 25.26 ms</b> becomes the noise floor. A residual well beyond it is unusual for the workload.</p>
+<code class="eq">Ŷ = 73.53 + 0.052·Req + 2.416·CPU + 1.447·Mem + 2.220·Net</code>
+</div>
+</div>
+</section>
+
+<section class="slide" data-t="🧮 Pipeline">
+<h2>🧮 The Pipeline: Prediction → Risk Score → Response</h2>
+<p class="sub">Grey stages exist in the project. Red stages are the future roadmap.</p>
+<div class="flow">
+<div class="node done"><span class="e">📡</span><b>Telemetry</b>request rate, CPU, memory, network<br><span class="badge b-done">built</span></div>
+<div class="node done"><span class="e">📈</span><b>Regression</b>predicts expected latency Ŷ<br><span class="badge b-done">built</span></div>
+<div class="node done"><span class="e">➖</span><b>Residual</b>e = actual − Ŷ<br><span class="badge b-done">built</span></div>
+<div class="node new"><span class="e">🎯</span><b>Risk score</b>z-score, surge, SLA, persistence<br><span class="badge b-new">roadmap</span></div>
+<div class="node new"><span class="e">🛡️</span><b>Response</b>log, alert, throttle, isolate<br><span class="badge b-new">roadmap</span></div>
+<div class="node new"><span class="e">🔁</span><b>Retrain</b>new measurements become labels<br><span class="badge b-new">roadmap</span></div>
+</div>
+<code class="eq">risk = w1·min(|z|/3, 1) + w2·surge + w3·sla_breach + w4·persistence &nbsp; where z = e / 25.26</code>
+<p class="note">Weights w1 to w4 are placeholders to be calibrated on real data.</p>
+<hr>
+<div class="tiles">
+<div class="card tile"><small>🚨 Residual z-score</small>slower than workload explains</div>
+<div class="card tile"><small>🌊 Workload surge</small>flood-like traffic</div>
+<div class="card tile"><small>⏱️ SLA breach</small>predicted above target</div>
+<div class="card tile"><small>🔂 Persistence</small>sustained, not one-off</div>
+</div>
+</section>
+
+<section class="slide" data-t="⚡ Residual Signal">
+<h2>⚡ Spotting Deviations: The Residual Signal</h2>
+<p class="sub">Illustrative simulated stream, not project data. Shaded band = ±2 × RMSE (±50.5 ms) around the prediction.</p>
+<div class="card"><svg id="ch" viewBox="0 0 700 270"></svg></div>
+<div class="tiles" style="margin-top:14px">
+<div class="tile"><small>Flagged requests</small><b id="nf">–</b></div>
+<div class="tile"><small>Peak z-score</small><b id="pz">–</b></div>
+<div class="tile"><small>Busy-but-normal period</small><b style="font-size:20px;color:var(--ok)">not flagged</b></div>
+</div>
+<p class="note">High latency that the model predicted (heavy but legitimate load) stays inside the band. Only latency the workload cannot explain breaks out.</p>
+</section>
+
+<section class="slide" data-t="🛡️ Risk Tiers">
+<h2>🛡️ Risk Tiers & Automated Response</h2>
+<p class="sub">Drag the slider to change the residual z-score. Thresholds are illustrative.</p>
+<div class="card">
+<svg viewBox="0 0 700 90">
+<rect x="20" y="30" width="280" height="22" rx="4" fill="#21c354" opacity=".85"/>
+<rect x="300" y="30" width="140" height="22" fill="#ffc107" opacity=".9"/>
+<rect x="440" y="30" width="240" height="22" rx="4" fill="#ff4b4b"/>
+<g fill="#fafafa" font-size="12" text-anchor="middle"><text x="20" y="72">0</text><text x="300" y="72">2</text><text x="440" y="72">3</text><text x="680" y="72">5+</text></g>
+<path id="mk" d="M0 0 l-8 -12 h16z" fill="#fafafa" transform="translate(172 28)"/>
+</svg>
+<input type="range" id="zs" min="0" max="5" step="0.05" value="1.2">
+<div style="text-align:center">z = <b id="zv">1.20</b></div>
+</div>
+<div class="cols" style="margin-top:16px;align-items:stretch">
+<div class="tier on" id="t0" style="border-top-color:var(--ok)"><b>🟢 Low</b><br>Log the sample for retraining.</div>
+<div class="tier" id="t1" style="border-top-color:var(--amb)"><b>🟡 Medium</b><br>Alert analyst, tighten per-client rate limits.</div>
+<div class="tier" id="t2" style="border-top-color:var(--red)"><b>🔴 High</b><br>Throttle or challenge sources, shed load, isolate instance.</div>
+</div>
+<p class="note">Persisting for 5 or more requests raises the tier by one.</p>
+</section>
+
+<section class="slide" data-t="🗺️ Roadmap">
+<h2>🗺️ Roadmap: Five Phases</h2>
+<p class="sub">Drawn from the project’s stated next steps and design document</p>
+<div class="tl">
+<div class="card ph" data-n="1"><span class="e">📡</span><b>Real telemetry</b><span>Replace simulated data with live Node.js server measurements</span></div>
+<div class="card ph" data-n="2"><span class="e">🔧</span><b>Harden baseline</b><span>Check residual assumptions, time-based holdout, drift; compare Ridge and decision tree</span></div>
+<div class="card ph" data-n="3"><span class="e">🎯</span><b>Build risk score</b><span>Implement z-score, surge, SLA, persistence; calibrate weights</span></div>
+<div class="card ph" data-n="4"><span class="e">🧪</span><b>Validate on attacks</b><span>Labelled normal and attack traffic; precision, recall, false-positive rate</span></div>
+<div class="card ph" data-n="5"><span class="e">🚀</span><b>Integrate</b><span>Monitoring dashboard, automated actions, offline retraining loop</span></div>
+</div>
+<hr>
+<div class="card"><b>⚠️ Honest scope:</b> the project does not claim attack detection. Slow responses have benign causes, so a flag means “investigate”. Phase 4 decides whether the idea works.</div>
+</section>
+
+<div class="nav"><button id="pv">← Previous</button><span id="pg"></span><button id="nx">Next →</button></div>
+</main>
+</div>
+<script>
+const S=[...document.querySelectorAll('.slide')],$=i=>document.getElementById(i);let c=0;
+S.forEach((s,i)=>{const b=document.createElement('button');b.textContent=s.dataset.t;b.onclick=()=>go(i);$('menu').appendChild(b)});
+function go(i){c=Math.max(0,Math.min(S.length-1,i));S.forEach((s,k)=>s.classList.toggle('on',k==c));
+[...$('menu').children].forEach((b,k)=>b.classList.toggle('on',k==c));
+$('prog').style.width=((c+1)/S.length*100)+'%';$('pg').textContent=(c+1)+' / '+S.length;document.querySelector('main').scrollTop=0}
+$('pv').onclick=()=>go(c-1);$('nx').onclick=()=>go(c+1);
+addEventListener('keydown',e=>{if(e.key=='ArrowRight')go(c+1);if(e.key=='ArrowLeft')go(c-1)});
+go(0);
+/* residual chart */
+(function(){let s=42;const r=()=>(s=s*16807%2147483647)/2147483647,N=60,W=700,H=270,B=50.52;
+const x=i=>45+i*(W-65)/(N-1),y=v=>H-30-(v-100)/460*(H-55);
+const p=[],a=[];for(let i=0;i<N;i++){p[i]=330+110*Math.sin(i/9);let v=p[i]+(r()-.5)*56;if(i>=40&&i<=46)v+=80+r()*45;a[i]=v}
+const L=(arr)=>arr.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join('');
+const up=p.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v+B).toFixed(1)).join('');
+const lo=p.map((v,i)=>'L'+x(N-1-i).toFixed(1)+' '+y(p[N-1-i]-B).toFixed(1)).join('');
+let d='',n=0,pk=0;a.forEach((v,i)=>{const z=Math.abs(v-p[i])/25.26;pk=Math.max(pk,(v-p[i])/25.26);if(Math.abs(v-p[i])>B){n++;d+=`<circle cx="${x(i)}" cy="${y(v)}" r="5" fill="#ff4b4b"/>`}});
+let g='';[100,200,300,400,500].forEach(v=>g+=`<line x1="45" x2="${W-20}" y1="${y(v)}" y2="${y(v)}" stroke="#2e3340"/><text x="8" y="${y(v)+4}" fill="#a3a8b8" font-size="11">${v}</text>`);
+$('ch').innerHTML=g+`<path d="${up}${lo}Z" fill="#a3a8b8" opacity=".18"/><path d="${L(p)}" fill="none" stroke="#a3a8b8" stroke-width="2" stroke-dasharray="6 4"/><path d="${L(a)}" fill="none" stroke="#fafafa" stroke-width="1.8"/>${d}<text x="45" y="${H-6}" fill="#a3a8b8" font-size="11">requests over time →  (ms)</text>`;
+$('nf').textContent=n;$('pz').textContent=pk.toFixed(1)})();
+/* tier slider */
+const zs=$('zs');function z(){const v=+zs.value,l=v>3?2:v>=2?1:0;$('zv').textContent=v.toFixed(2);
+$('mk').setAttribute('transform','translate('+(v<2?20+v*140:v<3?300+(v-2)*140:440+(v-3)*120)+' 28)');[0,1,2].forEach(k=>$('t'+k).classList.toggle('on',k==l))}
+zs.oninput=z;z();
+</script>
+</body>
+</html>

@@ -46,10 +46,19 @@ pip install -r requirements.txt
 ```
 
 ### Execution
-Run the main script to process the statistics, calculate correlation/regression, run hypothesis tests, and generate plots:
+Run the statistical pipeline script:
 ```bash
 python server_prediction.py
 ```
+
+Or launch the interactive Streamlit Web Application:
+```bash
+streamlit run app.py
+```
+
+### 🌐 Live Future Roadmap Deck
+The interactive presentation deck is deployed and hosted on GitHub Pages:
+👉 **[View Future Roadmap: Latency Prediction to Cyber Risk Scoring](https://alena-tas12.github.io/server-response-time-prediction/)**
 
 ### Output
 - `server_performance_data.csv`: The underlying simulated observation dataset.
